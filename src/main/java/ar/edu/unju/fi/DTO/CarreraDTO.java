@@ -8,6 +8,8 @@ import lombok.Data;
 @Component
 public class CarreraDTO {
 
+	private String codigo;
 	private String nombre;
 	private Integer duracion;
+	private Boolean estado;
 }

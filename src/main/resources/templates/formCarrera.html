@@ -10,7 +10,7 @@
 </head>
 <body>
 	<div class="container">
-	<div data-th-replace="~{fragments/fragmentos :: header}"></div>
+	<div data-th-replace="~{fragments/header :: navbar}"></div>
 		<h1>FORMULARIO CARRERA</h1>
 		<form data-th-object="${nuevaCarrera}" 
 		data-th-action="${band}?@{/modificarCarrera}:@{/guardarCarrera}" 
@@ -47,7 +47,7 @@
 			
 			<button type="submit" class="btn btn-primary">Guardar Carrera</button>
 		</form>
-		<div data-th-replace="~{fragments/fragmentos :: footer}"></div>
+		<div data-th-replace="~{fragments/footer :: footer}"></div>
 	</div>
 
 	<script

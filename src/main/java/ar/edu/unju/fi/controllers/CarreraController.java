@@ -8,14 +8,14 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.model.Carrera;
+import ar.edu.unju.fi.DTO.CarreraDTO;
 import ar.edu.unju.fi.service.CarreraService;
 
 @Controller
 public class CarreraController {
 	
 	@Autowired
-	Carrera nuevaCarrera;
+	CarreraDTO nuevaCarreraDTO;
 	
 	@Autowired
 	CarreraService carreraService;
@@ -26,13 +26,13 @@ public class CarreraController {
 		ModelAndView modelView = new ModelAndView("formCarrera");
 		//agrega el objeto
 		//nuevaCarrera.setNombre("Ingenieria");
-		modelView.addObject("nuevaCarrera", nuevaCarrera);	
+		modelView.addObject("nuevaCarrera", nuevaCarreraDTO );	
 		modelView.addObject("band", false);
 		return modelView;
 	}
 	
 	@PostMapping("/guardarCarrera")
-	public ModelAndView saveCarrera(@ModelAttribute("nuevaCarrera") Carrera carreraParaGuardar) {
+	public ModelAndView saveCarrera(@ModelAttribute("nuevaCarrera") CarreraDTO carreraParaGuardar) {
 					
 		//guardar
 		//ListadoCarreras.agregarCarrera(carreraParaGuardar);

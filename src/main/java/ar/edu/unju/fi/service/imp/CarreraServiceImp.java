@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.unju.fi.DTO.CarreraDTO;
+import ar.edu.unju.fi.map.CarreraMapDTO;
 import ar.edu.unju.fi.model.Carrera;
 import ar.edu.unju.fi.repository.CarreraRepository;
 import ar.edu.unju.fi.service.CarreraService;
@@ -15,11 +17,17 @@ public class CarreraServiceImp implements CarreraService{
 	@Autowired
 	CarreraRepository carreraRepository;
 	
+	@Autowired
+	CarreraMapDTO carreraMapDTO;
+	
 	@Override
-	public void guardarCarrera(Carrera carrera) {
+	public void guardarCarrera(CarreraDTO carreraDTO) {
 		// TODO Auto-generated method stub
 		//carrera.setEstado(true);
-		carreraRepository.save(carrera);
+		
+		carreraMapDTO.convertirCarreraDTOACarrera(carreraDTO);
+		carreraRepository.save
+		(carreraMapDTO.convertirCarreraDTOACarrera(carreraDTO));
 	}
 
 	@Override
