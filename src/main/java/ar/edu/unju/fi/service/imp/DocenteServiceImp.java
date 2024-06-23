@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import ar.edu.unju.fi.DTO.DocenteDTO;
+import ar.edu.unju.fi.map.DocenteMapDTO;
 import ar.edu.unju.fi.model.Docente;
 import ar.edu.unju.fi.repository.DocenteRepository;
 import ar.edu.unju.fi.service.DocenteService;
@@ -14,12 +16,14 @@ public class DocenteServiceImp implements DocenteService{
 
 	@Autowired
 	DocenteRepository docenteRepository;
+	@Autowired 
+	DocenteMapDTO docenteMapDTO;
 	
 	@Override
-	public void guardarDocente (Docente docente) {
-		// TODO Auto-generated method stub
-		//carrera.setEstado(true);
-		docenteRepository.save(docente);
+	public void guardarDocente (DocenteDTO docente) {
+		docenteMapDTO.convertirDocenteDTOADocente(docente);
+		docenteRepository.save
+		(docenteMapDTO.convertirDocenteDTOADocente(docente));
 	}
 
 	@Override
@@ -43,17 +47,32 @@ public class DocenteServiceImp implements DocenteService{
 		      }
 		    }
 	}
+	
+
+
 
 	@Override
-	public void modificarDocente(Docente docente) {
-		// TODO Auto-generated method stub
+	public DocenteDTO buscarDocente(String legajo) {
 		
+		List<Docente> todasLasDocentes = docenteRepository.findAll();
+		for (Docente docente : todasLasDocentes){
+			if (docente.getLegajo().equals(legajo)){
+				return docenteMapDTO.convertirDocenteADocenteDTO(docente);
+			}
+		}
+		return null;
 	}
 
 	@Override
-	public Docente buscarDocente(String legajo) {
-		// TODO Auto-generated method stub
-		return null;
+	public void modificarDocente(DocenteDTO docenteModificada) {
+		List<Docente> todasLasDocentes = docenteRepository.findAll();
+		for (int i = 0 ; i < todasLasDocentes.size() ; i++) {
+			DocenteDTO docente = docenteMapDTO.convertirDocenteADocenteDTO(todasLasDocentes.get(i));
+			if (docente.getLegajo().equals(docenteModificada.getLegajo())) {
+				todasLasDocentes.set(i, docenteMapDTO.convertirDocenteDTOADocente(docenteModificada));
+				break;
+			}
+		}
 	}
 
 }
