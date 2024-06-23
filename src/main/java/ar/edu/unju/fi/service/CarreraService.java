@@ -13,7 +13,7 @@ public interface CarreraService {
 	public void guardarCarrera(CarreraDTO carreraDTO);
 	public List<Carrera> mostrarCarreras();
 	public void borrarCarrera(String codigo);
-	public void modificarCarrera(Carrera carrera);
-	public Carrera buscarCarrera(String codigo);
+	public void modificarCarrera(CarreraDTO carreraModificada);
+	public CarreraDTO buscarCarrera(String codigo);
 
 }

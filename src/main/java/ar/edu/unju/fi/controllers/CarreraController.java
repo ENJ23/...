@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
 import ar.edu.unju.fi.DTO.CarreraDTO;
+import ar.edu.unju.fi.repository.CarreraRepository;
 import ar.edu.unju.fi.service.CarreraService;
 
 @Controller
@@ -59,11 +60,12 @@ public class CarreraController {
 		
 		return modelView;		
 		}
-	/**
+	
 	@GetMapping("/modificarCarrera/{codigo}")
 	public ModelAndView editCarrera(@PathVariable(name="codigo") String codigo) {
 		//buscar
-		Carrera carreraParaModificar = ListadoCarreras.buscarCarreraPorCodigo(codigo);
+		
+		CarreraDTO carreraParaModificar =  carreraService.buscarCarrera(codigo);
 		
 		//mostrar el nuevo formulario
 		ModelAndView modelView = new ModelAndView("formCarrera");
@@ -73,16 +75,16 @@ public class CarreraController {
 		}
 	
 	@PostMapping("/modificarCarrera")
-	public ModelAndView updateCarrera(@ModelAttribute("nuevaCarrera") Carrera carreraModificada) {
+	public ModelAndView updateCarrera(@ModelAttribute("nuevaCarrera") CarreraDTO carreraModificada) {
 					
 		//guardar
-		ListadoCarreras.modificarCarrera(carreraModificada);
-		
+		carreraService.modificarCarrera(carreraModificada);
+		carreraModificada.setEstado(true);
 		//mostrar el listado
 		ModelAndView modelView = new ModelAndView("listaDeCarreras");
-		modelView.addObject("listadoCarreras", ListadoCarreras.listarCarreras());	
+		modelView.addObject("listadoCarreras", carreraService.mostrarCarreras());	
 		
 		return modelView;		
 	}
-**/
+
 }

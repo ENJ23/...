@@ -53,16 +53,27 @@ public class CarreraServiceImp implements CarreraService{
 	}
 
 	@Override
-	public void modificarCarrera(Carrera carrera) {
-		// TODO Auto-generated method stub
-		
+	public void modificarCarrera(CarreraDTO carreraModificada) {
+		List<Carrera> todasLasCarreras = carreraRepository.findAll();
+		for (int i = 0 ; i < todasLasCarreras.size() ; i++) {
+			CarreraDTO carrera = carreraMapDTO.convertirCarreraACarreraDTO(todasLasCarreras.get(i));
+			if (carrera.getCodigo().equals(carreraModificada.getCodigo())) {
+				todasLasCarreras.set(i, carreraMapDTO.convertirCarreraDTOACarrera(carreraModificada));
+				break;
+			}
+		}
 	}
 
 	@Override
-	public Carrera buscarCarrera(String codigo) {
-		// TODO Auto-generated method stub
+	public CarreraDTO buscarCarrera(String codigo) {
+		
+		List<Carrera> todasLasCarreras = carreraRepository.findAll();
+		for (Carrera carrera : todasLasCarreras){
+			if (carrera.getCodigo().equals(codigo)){
+				return carreraMapDTO.convertirCarreraACarreraDTO(carrera);
+			}
+		}
 		return null;
 	}
-
 	
 }
