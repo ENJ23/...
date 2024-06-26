@@ -21,12 +21,14 @@ public interface AlumnoMapDTO {
 	@Mapping(source="fechadenacimiento",target="fechadenacimiento") 
 	@Mapping(source="domicilio",target="domicilio") 
 	@Mapping(source="lu",target="lu") 
+	@Mapping(source="estado",target="estado") 
 	AlumnoDTO convertirAlumnoAAlumnoDTO(Alumno a);
 	
 	@InheritInverseConfiguration //Revierte la confifuración anterior
-	Alumno convertirAlumnoDTOADocente(AlumnoDTO ddto);	
+	Alumno convertirAlumnoDTOAAlumno(AlumnoDTO ddto);	
 
 	List<AlumnoDTO> convertirListaAlumnosAListaAlumnosDTO(List<Alumno> listaAlumno);
 	
 	List<Alumno> convertirListaAlumnosDTOAListaAlumnos(List<AlumnoDTO> listaAlumnosDTO);
+
 }

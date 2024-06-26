@@ -17,4 +17,6 @@ public class AlumnoDTO {
 	private Calendar fechadenacimiento;
 	private String domicilio;
 	private String lu;
+	private Boolean estado;
+	
 }
