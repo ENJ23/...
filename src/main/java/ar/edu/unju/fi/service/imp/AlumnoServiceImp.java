@@ -3,7 +3,7 @@ package ar.edu.unju.fi.service.imp;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+
 
 import ar.edu.unju.fi.DTO.AlumnoDTO;
 import ar.edu.unju.fi.map.AlumnoMapDTO;
@@ -28,8 +28,8 @@ public class AlumnoServiceImp implements AlumnoService{
 		@Override
 		public List<Alumno> mostrarAlumnos() {
 			// TODO Auto-generated method stub
-			//return carreraRepository.findAll();
-			return docenteRepository.findDocenteByEstado(true);
+			//return alumnoRepository.findAll();
+			return alumnoRepository.findAlumnoByEstado(true);
 		}
 
 		@Override
@@ -54,25 +54,30 @@ public class AlumnoServiceImp implements AlumnoService{
 		public AlumnoDTO buscarAlumno(String alumno) {
 			
 			List<Alumno> todosLosAlumnos = alumnoRepository.findAll();
-			for (Alumno alumno : todosLosAlumnos){
-				if (alumno.getLu().equals(lu)){
-					return alumnoMapDTO.convertirAlumnoAAlumnoDTO(alumno);
+			for (Alumno alumno1 : todosLosAlumnos){
+				if (alumno1.getLu().equals(alumno)){
+					return alumnoMapDTO.convertirAlumnoAAlumnoDTO(alumno1);
 				}
 			}
 			return null;
 		}
 
 		@Override
-		public void modificarAlumno(AlumnoDTO alumnoModificada) {
+		public void modificarAlumno(AlumnoDTO alumnoModificado) {
 			List<Alumno> todosLosAlumnos = alumnoRepository.findAll();
 			for (int i = 0 ; i < todosLosAlumnos.size() ; i++) {
 				AlumnoDTO alumno = alumnoMapDTO.convertirAlumnoAAlumnoDTO(todosLosAlumnos.get(i));
-				if (alumno.getLu().equals(alumnoModificada.getLu())) {
-					todosLosAlumnos.set(i, alumnoMapDTO.convertirAlumnoDTOAAlumno(alumnoModificada));
+				if (alumno.getLu().equals(alumnoModificado.getLu())) {
+					todosLosAlumnos.set(i, alumnoMapDTO.convertirAlumnoDTOAAlumno(alumnoModificado));
 					break;
 				}
 			}
 		}
 
-	}
+		@Override
+		public List<Alumno> mostrarAlumno() {
+			// TODO Auto-generated method stub
+			return null;
+		}
+
 }

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import ar.edu.unju.fi.model.Alumno;
 
 @Repository
-public interface AlumnoRepository {
-	
+public interface AlumnoRepository extends JpaRepository <Alumno,String> {
+	 List<Alumno> findAlumnoByEstado(Boolean estado);
 }
