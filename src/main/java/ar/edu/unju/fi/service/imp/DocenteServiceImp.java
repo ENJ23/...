@@ -65,14 +65,26 @@ public class DocenteServiceImp implements DocenteService{
 
 	@Override
 	public void modificarDocente(DocenteDTO docenteModificada) {
+
+	    DocenteDTO docenteBuscada = buscarDocente(docenteModificada.getLegajo());
+	    if (docenteBuscada != null) {
+	    	
 		List<Docente> todasLasDocentes = docenteRepository.findAll();
-		for (int i = 0 ; i < todasLasDocentes.size() ; i++) {
-			DocenteDTO docente = docenteMapDTO.convertirDocenteADocenteDTO(todasLasDocentes.get(i));
-			if (docente.getLegajo().equals(docenteModificada.getLegajo())) {
-				todasLasDocentes.set(i, docenteMapDTO.convertirDocenteDTOADocente(docenteModificada));
-				break;
-			}
-		}
+		
+			for (int i = 0 ; i < todasLasDocentes.size() ; i++) {
+				
+				DocenteDTO docente = docenteMapDTO.convertirDocenteADocenteDTO(todasLasDocentes.get(i));
+				
+				if (docente.getLegajo().equals(docenteModificada.getLegajo())) {
+					todasLasDocentes.set(i, docenteMapDTO.convertirDocenteDTOADocente(docenteModificada));
+					break;
+					}
+				}
+			docenteRepository.saveAll(todasLasDocentes);
+		   } 
+	    	else {
+	    		System.out.println("El docente no se ha encontrado ");
+	    }
 	}
 
 }
