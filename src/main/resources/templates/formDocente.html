@@ -6,36 +6,41 @@
 <link rel="stylesheet"
 	data-th-href="@{/webjars/bootstrap/5.3.3/css/bootstrap.min.css}">
 
-<title>Formulario Carreras</title>
+<title>Formulario Docentes</title>
 </head>
 <body>
 	<div class="container">
 	<div data-th-replace="~{fragments/header :: navbar}"></div>
-		<h1>FORMULARIO CARRERA</h1>
-		<form data-th-object="${nuevaCarrera}" 
-		data-th-action="${band}?@{/modificarCarrera}:@{/guardarCarrera}" 
+		<h1>FORMULARIO DOCENTE</h1>
+		<form data-th-object="${nuevoDocente}" 
+		data-th-action="${band}?@{/modificarDocente}:@{/guardarDocente}" 
 		method="post">
 		
 			<div class="col-sm-6">
-				<label for="codigo" class="form-label">Codigo</label> 
-				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band}>				
+				<label for="legajo" class="form-label">Legajo</label> 
+				<input type="text" class="form-control"	id="legajo" data-th-field="*{legajo}" data-th-readonly=${band}>				
 			</div>
 			
 			<div class="col-sm-6">
-				<label for="nombre" class="form-label">Nombre Carrera</label>
+				<label for="nombre" class="form-label">Nombre Docente</label>
 				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
 			</div>
 			
 			<div class="col-sm-6">
-				<label for="cantidad" class="form-label">Cantidad Años</label>
-				<input type="number" class="form-control" id="cantidad" data-th-field="*{duracion}">
+				<label for="apellido" class="form-label">Apellido Docente</label>
+				<input type="text" class="form-control"	id="apellido" data-th-field="*{apellido}">
 			</div>
-			<!-- 
+			
 			<div class="col-sm-6">
-				<label for="estado" class="form-label">Cantidad Años</label>
-				<input type="text" class="form-control" id="estado" data-th-field="*{estado}">
+  				<label for="email" class="form-label">Correo Electrónico Docente</label>
+    			<input type="email" class="form-control" id="email" data-th-field="*{email}">
 			</div>
-			 -->
+			
+			<div class="col-sm-6">
+    			<label for="telefono" class="form-label">Teléfono</label>
+    			<input type="tel" class="form-control" id="telefono" data-th-field="*{telefono}">
+			</div>
+			
 			<div class="col-md-4">
                     <label class="form-label" for="fcurso">Estado</label>
                     <select data-th-field="*{estado}" class="form-control" required>
@@ -45,7 +50,7 @@
                     </select>
                 </div>
 			
-			<button type="submit" class="btn btn-primary">Guardar Carrera</button>
+			<button type="submit" class="btn btn-primary">Guardar docente</button>
 		</form>
 		<div data-th-replace="~{fragments/footer :: footer}"></div>
 	</div>
