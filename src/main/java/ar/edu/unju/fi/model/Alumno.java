@@ -21,5 +21,4 @@ public class Alumno {
 	@Id
 	private String lu;
 	private Boolean estado;
-	
-}
+

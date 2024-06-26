@@ -30,21 +30,14 @@ public class MateriaController {
 		modelView.addObject("band", false);
 		return modelView;
 	}
-	
-	//@GetMapping("/formularioMateria")
-    //public ModelAndView getFormMateria() {
-        //ModelAndView modelView = new ModelAndView("formMateria");
-       // modelView.addObject(new Materia());
 
-        //return modelView;
-    //}
     @PostMapping("/guardarMateria")
-	public ModelAndView saveMateria(@ModelAttribute("nuevaMateria") Materia materiaParaGuardar) {
+	public ModelAndView saveMateria(@ModelAttribute("nuevaMateria") MateriaDTO materiaParaGuardar) {
 
 		materiaService.guardarMateria(materiaParaGuardar);
 
 		ModelAndView modelView = new ModelAndView("listaDeMaterias");
-		modelView.addObject("listadoMaterias", materiaService.mostrarMateria());
+		modelView.addObject("listadoMateria", materiaService.mostrarMateria());
 
 		return modelView;		
 	}
@@ -52,11 +45,11 @@ public class MateriaController {
 	@GetMapping("/borrarMateria/{codigo}")
 	public ModelAndView deleteMateriaDelListado(@PathVariable(name="codigo") String codigo) {
 		System.out.println("este es el codigo: "+codigo);
-		MateriaService.borrarMateria(codigo);
+		materiaService.borrarMateria(codigo);
 		
 		//mostrar el nuevo listado
 		ModelAndView modelView = new ModelAndView("listaDeMaterias");
-		modelView.addObject("listadoMaterias", materiaService.mostrarMateria());	
+		modelView.addObject("listadoMateria", materiaService.mostrarMateria());	
 		
 		return modelView;		
 		}
@@ -77,11 +70,10 @@ public class MateriaController {
 	@PostMapping("/modificarMateria")
 	public ModelAndView updateMateria(@ModelAttribute("nuevaMateria") MateriaDTO materiaModificada) {
 					
-		//guardar
 		materiaService.modificarMateria(materiaModificada);
 		materiaModificada.setEstado(true);
 		ModelAndView modelView = new ModelAndView("listaDeMaterias");
-		modelView.addObject("listadoMaterias", materiaService.mostrarMateria());	
+		modelView.addObject("listadoMateria", materiaService.mostrarMateria());	
 		
 		return modelView;		
 	}
