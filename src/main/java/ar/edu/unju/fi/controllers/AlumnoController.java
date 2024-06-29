@@ -1,4 +1,5 @@
 package ar.edu.unju.fi.controllers;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -7,61 +8,82 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import ar.edu.unju.fi.model.Alumno;
-
+import ar.edu.unju.fi.DTO.AlumnoDTO;
+import ar.edu.unju.fi.service.AlumnoService;
 
 @Controller
 public class AlumnoController {
 	
 	@Autowired
-	Alumno nuevoAlumno; 
-	@GetMapping ("/formularioAlumno")
+	AlumnoDTO nuevoAlumnoDTO;
+	
+	@Autowired
+	AlumnoService alumnoService;
+	
+	@GetMapping("/formularioAlumno")
 	public ModelAndView getFormAlumno() {
 		//vista formCarrera.html
 		ModelAndView modelView = new ModelAndView("formAlumno");
-		//Agrega el Objeto
-		modelView.addObject("nuevoAlumno", nuevoAlumno);
-		modelView.addObject("flag", false);
+		//agrega el objeto
+		//nuevaCarrera.setNombre("Ingenieria");
+		modelView.addObject("nuevoAlumno", nuevoAlumnoDTO );	
+		modelView.addObject("band", false);
 		return modelView;
 	}
 	
-	
-	@PostMapping("/guardarAlumno")
-	public ModelAndView saveAlumno(@ModelAttribute("nuevoAlumno") Alumno alumnoParaGuardar) {
+	@PostMapping("/guardarCarrera")
+	public ModelAndView saveAlumno(@ModelAttribute("nuevoAlumno") AlumnoDTO alumnoParaGuardar) {
+					
+		//guardar
+		//ListadoCarreras.agregarCarrera(carreraParaGuardar);
+		alumnoService.guardarAlumno(alumnoParaGuardar);
 		
-		//guardar el alumno en la lista
-		
-		//ListadoAlumnos.agregarAlumno(alumnoParaGuardar);
-		//Mostrar Listado
+		//mostrar el listado
 		ModelAndView modelView = new ModelAndView("listaDeAlumnos");
-		//modelView.addObject("listadoAlumnos" , ListadoAlumnos.listarAlumnos());
-		return modelView;
+		//modelView.addObject("listadoAlumnos", ListadoAlumnos.listarAlumnos());	
+		modelView.addObject("listadoCarreras", alumnoService.mostrarAlumnos());
+		
+		return modelView;		
 	}
 	
-	/*
-	 * @GetMapping("/eliminarAlumno/{lu}") public ModelAndView
-	 * borrarAlumnoDelListado (@PathVariable (name="lu") String lu) {
-	 * 
-	 * ListadoAlumnos.eliminarAlumno(lu);
-	 * 
-	 * ModelAndView modelView = new ModelAndView("listaDeAlumnos");
-	 * modelView.addObject("listadoDeAlumnos", ListadoAlumnos.listarAlumnos());
-	 * 
-	 * return modelView; }
-	 * 
-	 * @GetMapping("/modificarAlumno/{lu}") public ModelAndView
-	 * getFormModificarAlumno(@PathVariable(name="lu") String lu) { Alumno
-	 * nuevoAlumno = ListadoAlumnos.buscarAlumnoPorLu(lu); ModelAndView
-	 * modelView = new ModelAndView("formAlumno");
-	 * modelView.addObject("nuevoAlumno", nuevoAlumno);
-	 * modelView.addObject("flag", true); return modelView; }
-	 * 
-	 * @PostMapping("/modificarAlumno") public ModelAndView
-	 * modificarAlumno(@ModelAttribute("nuevoAlumno") Alumno alumnoModificado) {
-	 * ListadoAlumnos.modificarAlumno(alumnoModificado);
-	 * alumnoModificado.setEstado(true); ModelAndView modelView = new
-	 * ModelAndView("listaDeAlumnos"); modelView.addObject("listadoAlumnos",
-	 * ListadoAlumnos.listarAlumnos()); return modelView; }
-	 * 
-	 */
+	@GetMapping("/borrarAlumno/{lu}")
+	public ModelAndView deleteCarreraDelListado(@PathVariable(name="lu") String lu) {
+		//borrar
+		//ListadoAlumnos.eliminarAlumno(lu);
+		System.out.println("esta es la libreta: "+lu);
+		alumnoService.borrarAlumno(lu);
+		
+		//mostrar el nuevo listado
+		ModelAndView modelView = new ModelAndView("listaDeAlumnos");
+		modelView.addObject("listadoAlumnos", alumnoService.mostrarAlumnos());	
+		
+		return modelView;		
+		}
+	
+	@GetMapping("/modificarCarrera/{codigo}")
+	public ModelAndView editAlumno(@PathVariable(name="lu") String lu) {
+		//buscar
+		
+		AlumnoDTO alumnoParaModificar =  alumnoService.buscarAlumno(lu);
+		
+		//mostrar el nuevo formulario
+		ModelAndView modelView = new ModelAndView("formAlumno");
+		modelView.addObject("nuevoAlumno", alumnoParaModificar);	
+		modelView.addObject("band", true);
+		return modelView;		
+		}
+	
+	@PostMapping("/modificarAlumno")
+	public ModelAndView updateAlumno(@ModelAttribute("nuevoAlumno") AlumnoDTO alumnoModificado) {
+					
+		//guardar
+		alumnoService.modificarAlumno(alumnoModificado);
+		alumnoModificado.setEstado(true);
+		//mostrar el listado
+		ModelAndView modelView = new ModelAndView("listaDeAlumnos");
+		modelView.addObject("listadoAlumnos", alumnoService.mostrarAlumnos());	
+		
+		return modelView;		
+	}
+
 }

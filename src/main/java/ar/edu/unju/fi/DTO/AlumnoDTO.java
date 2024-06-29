@@ -1,16 +1,14 @@
-package ar.edu.unju.fi.model;
+package ar.edu.unju.fi.DTO;
+
+import java.util.Calendar;
 
 import org.springframework.stereotype.Component;
 
-import jakarta.persistence.Entity;
 import lombok.Data;
-import java.util.Calendar;
-import jakarta.persistence.Id;
 
 @Data
 @Component
-@Entity
-public class Alumno {
+public class AlumnoDTO {
 	private String dni;
 	private String nombre;
 	private String apellido;
@@ -18,7 +16,7 @@ public class Alumno {
 	private String telefono;
 	private Calendar fechadenacimiento;
 	private String domicilio;
-	@Id
 	private String lu;
 	private Boolean estado;
-
+	
+}
