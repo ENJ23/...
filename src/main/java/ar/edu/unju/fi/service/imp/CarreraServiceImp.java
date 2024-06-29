@@ -17,24 +17,26 @@ public class CarreraServiceImp implements CarreraService{
 	@Autowired
 	CarreraRepository carreraRepository;
 	
+	
 	@Autowired
 	CarreraMapDTO carreraMapDTO;
 	
 	@Override
-	public void guardarCarrera(CarreraDTO carreraDTO) {
+	public void guardarCarrera(Carrera carreraParaGuardar) {
 		// TODO Auto-generated method stub
 		//carrera.setEstado(true);
+		carreraRepository.save(carreraParaGuardar);
 		
-		carreraMapDTO.convertirCarreraDTOACarrera(carreraDTO);
-		carreraRepository.save
-		(carreraMapDTO.convertirCarreraDTOACarrera(carreraDTO));
 	}
 
 	@Override
-	public List<Carrera> mostrarCarreras() {
+	public List<CarreraDTO> mostrarCarreras() {
 		// TODO Auto-generated method stub
 		//return carreraRepository.findAll();
-		return carreraRepository.findCarreraByEstado(true);
+		//return carreraRepository.findCarreraByEstado(true);
+		
+		return carreraMapDTO.convertirListaCarrerasAListaCarrerasDTO(
+				carreraRepository.findCarreraByEstado(true));
 	}
 
 	@Override
@@ -54,20 +56,33 @@ public class CarreraServiceImp implements CarreraService{
 
 	@Override
 	public void modificarCarrera(CarreraDTO carreraModificada) {
+		
+	    CarreraDTO carreraBuscada = buscarCarrera(carreraModificada.getCodigo());
+	    if (carreraBuscada != null) {
+	    	
 		List<Carrera> todasLasCarreras = carreraRepository.findAll();
-		for (int i = 0 ; i < todasLasCarreras.size() ; i++) {
-			CarreraDTO carrera = carreraMapDTO.convertirCarreraACarreraDTO(todasLasCarreras.get(i));
-			if (carrera.getCodigo().equals(carreraModificada.getCodigo())) {
-				todasLasCarreras.set(i, carreraMapDTO.convertirCarreraDTOACarrera(carreraModificada));
-				break;
-			}
-		}
-	}
+		
+			for (int i = 0 ; i < todasLasCarreras.size() ; i++) {
+				
+				CarreraDTO carrera = carreraMapDTO.convertirCarreraACarreraDTO(todasLasCarreras.get(i));
+				
+				if (carrera.getCodigo().equals(carreraModificada.getCodigo())) {
+					todasLasCarreras.set(i, carreraMapDTO.convertirCarreraDTOACarrera(carreraModificada));
+					break;
+					}
+				}
+			carreraRepository.saveAll(todasLasCarreras);
+		   } 
+	    	else {
+	    		System.out.println("La carrera no se ha encontrado ");
+	    }
+}
 
 	@Override
 	public CarreraDTO buscarCarrera(String codigo) {
 		
 		List<Carrera> todasLasCarreras = carreraRepository.findAll();
+		
 		for (Carrera carrera : todasLasCarreras){
 			if (carrera.getCodigo().equals(codigo)){
 				return carreraMapDTO.convertirCarreraACarreraDTO(carrera);

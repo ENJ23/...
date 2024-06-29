@@ -12,4 +12,5 @@ public class CarreraDTO {
 	private String nombre;
 	private Integer duracion;
 	private Boolean estado;
+	
 }

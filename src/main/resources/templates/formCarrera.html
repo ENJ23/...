@@ -18,17 +18,19 @@
 		
 			<div class="col-sm-6">
 				<label for="codigo" class="form-label">Codigo</label> 
-				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band}>				
+				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band} placeholder="Ingrese un código válido y no repetido" required>				
 			</div>
 			
 			<div class="col-sm-6">
 				<label for="nombre" class="form-label">Nombre Carrera</label>
-				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}">
+				<input type="text" class="form-control"	id="nombre" data-th-field="*{nombre}" placeholder="Ingrese un nombre utilizando letras únicamente">
+	<!--			<p class="form-text text-danger" data-th-if="${#fields.hasErrors('nombre')}" data-th-errors="*{nombre}"></p>  -->
 			</div>
 			
 			<div class="col-sm-6">
 				<label for="cantidad" class="form-label">Cantidad Años</label>
-				<input type="number" class="form-control" id="cantidad" data-th-field="*{duracion}">
+				<input type="number" class="form-control" id="cantidad" data-th-field="*{duracion}" placeholder="Ingrese una duración valida (3> & <7)">
+		<!--		<p class="form-text text-danger" data-th-if="${#fields.hasError('duracion')}" data-th-errors="*{duracion}"></p>  -->
 			</div>
 			<!-- 
 			<div class="col-sm-6">
@@ -44,7 +46,15 @@
                         
                     </select>
                 </div>
-			
+			<!-- 
+			<div class="mb-e">
+	            <label class="form-label">Materias</label>
+	            <select data-th-field="*{materias}" class="form-control" required multiple><br>
+	                <option value="">Seleccionar materia...</option>
+	                <option data-th-each="mat : ${mats}" data-th-value="${mat.codigoMat}" data-th-text="${mat.nombre + ' ' + mat.anio}"></option>
+	            </select>
+	        </div>
+	         -->
 			<button type="submit" class="btn btn-primary">Guardar Carrera</button>
 		</form>
 		<div data-th-replace="~{fragments/footer :: footer}"></div>
