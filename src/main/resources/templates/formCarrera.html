@@ -14,12 +14,12 @@
 		<h1>FORMULARIO CARRERA</h1>
 		<form data-th-object="${nuevaCarrera}" 
 		data-th-action="${band}?@{/modificarCarrera}:@{/guardarCarrera}" 
-		method="post">
+		method="post" enctype="multipart/form-data">
 		
 			<div class="col-sm-6">
 				<label for="codigo" class="form-label">Codigo</label> 
-				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band} placeholder="Ingrese un código válido y no repetido" required>				
-			</div>
+				<input type="text" class="form-control"	id="codigo" data-th-field="*{codigo}" data-th-readonly=${band}>				
+			</div> 
 			
 			<div class="col-sm-6">
 				<label for="nombre" class="form-label">Nombre Carrera</label>
@@ -32,29 +32,31 @@
 				<input type="number" class="form-control" id="cantidad" data-th-field="*{duracion}" placeholder="Ingrese una duración valida (3> & <7)">
 		<!--		<p class="form-text text-danger" data-th-if="${#fields.hasError('duracion')}" data-th-errors="*{duracion}"></p>  -->
 			</div>
-			<!-- 
-			<div class="col-sm-6">
-				<label for="estado" class="form-label">Cantidad Años</label>
-				<input type="text" class="form-control" id="estado" data-th-field="*{estado}">
-			</div>
-			 -->
-			<div class="col-md-4">
-                    <label class="form-label" for="fcurso">Estado</label>
+			<div class="mb-e">
+	            <label class="form-label">Materias</label>
+	            <select data-th-field="*{materias}" class="form-control" multiple>
+	                <option value="">Seleccionar materia...</option>
+	                <option data-th-each="mat : ${materias}" data-th-value="${mat.codigo}" data-th-text="${mat.nombre + ' ' + mat.curso}"></option>
+	            </select>
+	        </div>
+	        <div class="mb-e">
+	            <label class="form-label">Materias</label>
+	            <select data-th-field="*{alumnos}" class="form-control" multiple>
+	                <option value="">Seleccionar alumnos...</option>
+	                <option data-th-each="alumno : ${alumnos}" data-th-value="${alumno.lu}" data-th-text="${alumno.nombre + ' ' + alumno.apellido}"></option>
+	            </select>
+	        </div>
+			<!-- <div class="col-md-4">
+                    <label class="form-label" for="estado">Estado</label>
                     <select data-th-field="*{estado}" class="form-control" required>
                         <option data-th-value="true">True</option>
                         <option data-th-value="false">False</option>
                         
                     </select>
-                </div>
-			<!-- 
-			<div class="mb-e">
-	            <label class="form-label">Materias</label>
-	            <select data-th-field="*{materias}" class="form-control" required multiple><br>
-	                <option value="">Seleccionar materia...</option>
-	                <option data-th-each="mat : ${mats}" data-th-value="${mat.codigoMat}" data-th-text="${mat.nombre + ' ' + mat.anio}"></option>
-	            </select>
-	        </div>
-	         -->
+                </div> -->
+
+			
+
 			<button type="submit" class="btn btn-primary">Guardar Carrera</button>
 		</form>
 		<div data-th-replace="~{fragments/footer :: footer}"></div>

@@ -9,5 +9,5 @@ import ar.edu.unju.fi.model.Carrera;
 
 public interface CarreraRepository extends JpaRepository <Carrera,String>{
 
-    List<Carrera> findCarreraByEstado(Boolean estado);
+    public List<Carrera> findCarreraByEstado(Boolean estado);
 }

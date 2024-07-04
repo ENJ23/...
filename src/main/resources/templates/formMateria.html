@@ -14,7 +14,7 @@
 		<h1>FORMULARIO MATERIA</h1>
 		<form data-th-object="${nuevaMateria}" 
 		data-th-action="${band}?@{/modificarMateria}:@{/guardarMateria}" 
-		method="post">
+		method="post" enctype="multipart/form-data">
 		
 			<div class="col-sm-6">
 				<label for="codigo" class="form-label">Codigo</label> 
@@ -31,8 +31,8 @@
 				<input type="number" class="form-control" id="cantidad" data-th-field="*{cantidad}">
 			</div>
 			<div class="col-md-4">
-                    <label class="form-label" for="fcurso">Estado</label>
-                    <select data-th-field="*{estado}" class="form-control" required>
+                    <label class="form-label" for="fcurso">Modalidad</label>
+                    <select data-th-field="*{modalidad}" class="form-control" required>
                         <option data-th-value="true">Virtual</option>
                         <option data-th-value="false">Presencial</option>
                         
@@ -42,6 +42,23 @@
 				<label for="curso" class="form-label">Curso</label>
 				<input type="text" class="form-control" id="curso" data-th-field="*{curso}">
 			</div>
+			
+			<div class="mb-e">
+	            <label class="form-label">Docente</label>
+	            <select data-th-field="*{docentes}" class="form-control" required>
+	                <option value="">Seleccionar docente...</option>
+	                <option data-th-each="d : ${doc}" data-th-value="${d.legajo}" data-th-text="${d.nombre + ' ' + d.apellido}"></option>
+	            </select>
+	        </div>
+			
+			<div class="mb-e">
+	            <label class="form-label">Carrera</label>
+	            <select data-th-field="*{carrera}" class="form-control">
+	                <option value="">Seleccionar carrera...</option>
+	                <option data-th-each="c : ${carreras}" data-th-value="${c.codigo}" data-th-text="${c.nombre + ' ' + c.duracion + ' Años'}"></option>
+	            </select>
+	        </div>
+	        
 			<button type="submit" class="btn btn-primary">Guardar Materia</button>
 		</form>
 		<div data-th-replace="~{fragments/footer :: footer}"></div>

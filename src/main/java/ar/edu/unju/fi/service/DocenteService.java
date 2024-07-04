@@ -15,5 +15,6 @@ public interface DocenteService {
 	public void borrarDocente(String legajo);
 	public void modificarDocente(DocenteDTO docente);
 	public DocenteDTO buscarDocente(String legajo);
+	public Docente GetDocenteByLegajo(String legajo);
 
 }

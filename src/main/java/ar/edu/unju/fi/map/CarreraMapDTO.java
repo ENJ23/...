@@ -18,6 +18,7 @@ public interface CarreraMapDTO {
 	@Mapping(source="nombre",target="nombre") // Source = nombre del atributo de carrera --- target = nombre del atributo en DTO
 	@Mapping(source="duracion",target="duracion") 
 	@Mapping(source="estado",target="estado") 
+	//@Mapping(source="materias", target="materias")
 	CarreraDTO convertirCarreraACarreraDTO(Carrera c);
 	
 	@InheritInverseConfiguration //Revierte la confifuración anterior

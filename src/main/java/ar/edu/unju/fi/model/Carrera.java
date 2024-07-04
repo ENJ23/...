@@ -15,18 +15,18 @@ import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
-import jakarta.validation.constraints.Size;
+//import jakarta.validation.constraints.Size;
 import lombok.Data;
 
 @Data
 @Component
 @Entity
-@Table(name="Carreras")
+@Table(name="carreras")
 public class Carrera {
-
-	@Id
-	@NonNull
+	
+	//@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@NotBlank(message="Debe ingresar el código")
+	@Id
 	@Column(name="Carr_codigo")
 	private String codigo;
 	
@@ -47,7 +47,12 @@ public class Carrera {
 	@Column(name="Carr_estado")
 	private Boolean estado;
 	
-	@OneToMany(mappedBy="carrera", cascade=CascadeType.ALL)
+	@OneToMany(mappedBy="carrera", cascade=CascadeType.ALL) 
 	private List<Materia> materias;
+	 
+	@OneToMany(mappedBy="carrera", cascade=CascadeType.ALL)
+	private List<Alumno> alumnos;
 	
+	//@OneToOne
+	//private Docente docente;
 }
