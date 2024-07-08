@@ -38,18 +38,17 @@ public class MateriaServiceImp implements MateriaService {
     @Override
     public void borrarMateria(String codigo) {
         LOGGER.info("Iniciando método borrarMateria con código: " + codigo);
-        List<Materia> todasLasMaterias = materiaRepository.findAll();
-        for (int i = 0; i < todasLasMaterias.size(); i++) {
-            Materia materia = todasLasMaterias.get(i);
-            if (materia.getCodigo().equals(codigo)) {
-            	materia.setDocentes(null);
-                materia.setEstado(false);
-                materiaRepository.save(materia);
-                LOGGER.info("Materia eliminada exitosamente");
-                break;
+        List<Materia> materias = materiaRepository.findAll();
+		materias.forEach(materia -> {
+			if(materia.getCodigo().equals(codigo)) {
+				materia.setDocentes(null);
+				materia.setEstado(false);
+				materiaRepository.save(materia); 
+				LOGGER.info("Materia eliminada exitosamente");
+			}
+		});
+               
             }
-        }
-    }
 
     @Override
     public void modificarMateria(Materia materiaModificada) {

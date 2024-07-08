@@ -29,7 +29,7 @@
 			  <td data-th-text="${m.codigo}"></td>
 			  <td data-th-text="${m.nombre}"></td>
 			  <td data-th-text="${m.curso}"></td>
-			  <td data-th-text="${m.modalidad}"></td>
+			  <td data-th-text="${m.modalidad == true? 'Virtual' : 'Presencial'}"></td>
 			  <td data-th-text="${m.carrera != null? m.carrera.nombre : 'Sin Carrera'}"></td>
 			  <td data-th-text="${m.docentes != null? m.docentes.nombre + ' ' + m.docentes.apellido : 'Sin Docente' }"></td>
 			   

@@ -22,7 +22,7 @@
 	      <th scope="col">Apellido</th>
 	      <th scope="col">Email</th>
 	      <th scope="col">Telefono</th>
-	      <th scope="col">Estado</th>
+	      <th scope="col">Edicion</th>
 	    </tr>
 	  </thead>
 	  <tbody>
@@ -32,7 +32,6 @@
 	      <td data-th-text="${docente.apellido}"> </td>
 	      <td data-th-text="${docente.email}"> </td>
 	      <td data-th-text="${docente.telefono}"> </td>
-	      <td data-th-text="${docente.estado}"> </td>
 	      <td>
 	      		<a data-th-href="@{'/eliminarDocente/'+${docente.legajo}} " class="btn btn-danger">Borrar</a>
 	      		<a data-th-href="@{'/modificarDocente/'+${docente.legajo}} " class="btn btn-warning">Modificar</a>
