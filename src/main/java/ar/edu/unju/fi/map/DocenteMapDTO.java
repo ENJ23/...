@@ -20,6 +20,7 @@ public interface DocenteMapDTO {
 	@Mapping(source="email",target="email") 
 	@Mapping(source="telefono",target="telefono") 
 	@Mapping(source="estado",target="estado") 
+	@Mapping(source="materia", target="materia")
 	DocenteDTO convertirDocenteADocenteDTO(Docente d);
 	
 	@InheritInverseConfiguration //Revierte la confifuración anterior

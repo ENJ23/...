@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import ar.edu.unju.fi.DTO.CarreraDTO;
 import ar.edu.unju.fi.map.CarreraMapDTO;
 import ar.edu.unju.fi.model.Carrera;
 import ar.edu.unju.fi.repository.CarreraRepository;
@@ -59,24 +58,14 @@ public class CarreraServiceImp implements CarreraService{
 	}
 
 	@Override
-	public void modificarCarrera(CarreraDTO carreraModificada) {
+	public void modificarCarrera(Carrera carreraModificada) {
 		LOGGER.info("Iniciando método modificarCarrera");
-	    CarreraDTO carreraBuscada = buscarCarrera(carreraModificada.getCodigo());
+	    Carrera carreraBuscada = buscarCarrera(carreraModificada.getCodigo());
 	    if (carreraBuscada != null) {
 	    	
-		List<Carrera> todasLasCarreras = carreraRepository.findAll();
-		
-		for (CarreraDTO carrera : carreraMapDTO.convertirListaCarrerasAListaCarrerasDTO(todasLasCarreras)) {
-			int i=0;
-			i++;
-			if (carrera.getCodigo().equals(carreraModificada.getCodigo())) {
-				todasLasCarreras.set(i, carreraMapDTO.convertirCarreraDTOACarrera(carreraModificada));
-                LOGGER.info("Carrera modificada exitosamente");
-				break;
-				}
-			}
-		carreraRepository.saveAll(todasLasCarreras);
-	   } 
+	    		carreraRepository.save(carreraModificada);
+	    	}
+	   
     	else {
     		LOGGER.warn("La carrera no se ha encontrado");	  
 		  }
@@ -84,14 +73,14 @@ public class CarreraServiceImp implements CarreraService{
 
 
 	@Override
-	public CarreraDTO buscarCarrera(String codigo) {
+	public Carrera buscarCarrera(String codigo) {
 		 LOGGER.info("Buscando carrera con código: " + codigo);
 		List<Carrera> todasLasCarreras = carreraRepository.findAll();
 		
 		for (Carrera carrera : todasLasCarreras){
 			if (carrera.getCodigo().equals(codigo)){
                 LOGGER.info("Carrera encontrada");
-				return carreraMapDTO.convertirCarreraACarreraDTO(carrera);
+				return carrera;
 			}
 		}
 		return null;
@@ -110,6 +99,15 @@ public class CarreraServiceImp implements CarreraService{
         LOGGER.warn("Carrera no encontrada por código");
 
 		return null;
+	}
+	
+	@Override
+	public void borrarRelaciones(Carrera carrera) {
+		carrera.getAlumnos().forEach(a -> a.setCarrera(null));
+		carrera.getMaterias().forEach(m -> m.setCarrera(null));
+		carrera.getAlumnos().clear();
+		carrera.getMaterias().clear();
+		carreraRepository.save(carrera);
 	}
 	
 }

@@ -62,6 +62,18 @@ public class InscripcionController {
 
 		return modelView;
 	}
+	
+	@GetMapping("/listadoDeInscripciones")
+	public ModelAndView listarInscripciones() {
+		
+		ModelAndView modelView = new ModelAndView("listaDeInscripciones");
+		modelView.addObject("listadoInscripciones", inscripcionService.showInscripcion());
+		return modelView;
+		
+		
+	}
+	
+	
 
 	@GetMapping("/eliminarInscripcion/{id}")
 	public ModelAndView deleteInscripcionDelListado(@PathVariable(name = "id") long id) {

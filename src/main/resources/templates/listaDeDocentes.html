@@ -9,37 +9,41 @@
 </head>
 <body>
 
-	<header class="header-navbar">
-		<div data-th-replace="~{fragments/header::navbar}" ></div>
-		</header>
+		<header class="header-navbar">
+			<div data-th-replace="~{fragments/header::navbar}" ></div>
+			</header>
+	
+		<div class="container">
+		<table class="table">
+	  <thead>
+	    <tr>
+	      <th scope="col">Legajo</th>
+	      <th scope="col">Nombre</th>
+	      <th scope="col">Apellido</th>
+	      <th scope="col">Email</th>
+	      <th scope="col">Telefono</th>
+	      <th scope="col">Estado</th>
+	    </tr>
+	  </thead>
+	  <tbody>
+	    <tr data-th-each="docente : ${listadoDocentes}">
+	      <td data-th-text="${docente.legajo}"> </td>
+	      <td data-th-text="${docente.nombre}"> </td>
+	      <td data-th-text="${docente.apellido}"> </td>
+	      <td data-th-text="${docente.email}"> </td>
+	      <td data-th-text="${docente.telefono}"> </td>
+	      <td data-th-text="${docente.estado}"> </td>
+	      <td>
+	      		<a data-th-href="@{'/eliminarDocente/'+${docente.legajo}} " class="btn btn-danger">Borrar</a>
+	      		<a data-th-href="@{'/modificarDocente/'+${docente.legajo}} " class="btn btn-warning">Modificar</a>
+	      </td>
+	    </tr>
+	  </tbody>
+	</table>
 
-	<div class="container">
-	<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Legajo</th>
-      <th scope="col">Nombre</th>
-      <th scope="col">Apellido</th>
-      <th scope="col">Email</th>
-      <th scope="col">Telefono</th>
-      <th scope="col">Estado</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr data-th-each="docente : ${listadoDocentes}">
-      <td data-th-text="${docente.legajo}"> </td>
-      <td data-th-text="${docente.nombre}"> </td>
-      <td data-th-text="${docente.apellido}"> </td>
-      <td data-th-text="${docente.email}"> </td>
-      <td data-th-text="${docente.telefono}"> </td>
-      <td data-th-text="${docente.estado}"> </td>
-      <td>
-      		<a data-th-href="@{'/eliminarDocente/'+${docente.legajo}} " class="btn btn-danger">Borrar</a>
-      		<a data-th-href="@{'/modificarDocente/'+${docente.legajo}} " class="btn btn-warning">Modificar</a>
-      </td>
-    </tr>
-  </tbody>
-</table>
+	<p data-th-if="${errors}" data-th-text="${eliminarDocenteErrorMessage}" class="text-warning"> </p>
+	<p data-th-if="${errors}" data-th-text="${buscarDocenteErrorMessage}" class="text-warning"> </p>
+	<p data-th-if="${errors}" data-th-text="${modificarDocenteErrorMessage}" class="text-warning"> </p>
 </div>
 	<footer id="contacto" class="footer-page">
 		<div data-th-replace="~{fragments/footer::footer}"></div>

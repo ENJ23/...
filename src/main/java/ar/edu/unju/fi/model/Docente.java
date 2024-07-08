@@ -36,9 +36,7 @@ public class Docente {
     
     @OneToOne
     private Materia materia;
-    
-    //@OneToOne
-    //private Carrera carrera;
+
     
 	    
 }
